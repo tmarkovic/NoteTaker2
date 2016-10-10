@@ -1,38 +1,33 @@
 'use strict';
 
-var express = require('express');
-var app = express();
-var path = require('path');
-var api = require('./api');
-var bodyParser = require('body-parser');
-var cors = require('cors');
-var morgan  = require('morgan');
-var settings = require('./config.json');
+var api = require('express').Router();
+var session = require('./session');
+var user = require('./user');
+var notes = require('./notes');
+var auth = require('../middleware/auth');
+var delay = require('../middleware/delay');
 
-// serve static assets
-app.use(express.static(path.join(__dirname, 'public')));
+// path for getting a login token
+api.post('/login', delay, session.login);
 
-// connect logger middleware (this will not include requests of static files as
-// this is added after the static middleware)
-app.use(morgan('tiny'));
+// path for creating new users
+api.post('/users', delay, user.createUser);
+// path for checking if a username is available
+api.get('/users/check-availability/:username', delay, user.checkUsername);
 
-// parse the request payload and add it to the request body property
-app.use(bodyParser.json());
+// if a authentication-token is present in among the request headers unpack
+// the tokendata and attach it to the request object
+api.use(auth.unpack);
 
-//enable CORS
-app.use(cors());
+// add the note to the request body if one is requested
+api.param('noteId', notes.getNoteFromId);
 
-// mount the api
-app.use('/api', api);
+// routes for note management
+api.get('/notes', delay, auth.requireLogin, notes.list);
+api.get('/notes/:noteId', delay, auth.requireLogin, notes.get);
+api.post('/notes', delay, auth.requireLogin, notes.create);
+api.put('/notes/:noteId', delay, auth.requireLogin, notes.update);
+api.delete('/notes/:noteId', delay, auth.requireLogin, notes.destroy);
 
-// serve 404 message when no action matches the path
-app.use(function (req, res) {
-    res.status(404).send('File not found!');
-});
-
-
-
-// start server
-app.listen(settings.port, function () {
-    console.log('listening on port: ' + settings.port);
-});
+// make the api avaliable for the consumer
+module.exports = api;
