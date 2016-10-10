@@ -33,6 +33,6 @@ app.use(function (req, res) {
 
 
 // start server
-app.listen(settings.port, function () {
+app.listen(process.env.PORT || settings.port, function () {
     console.log('listening on port: ' + settings.port);
 });
