@@ -1,0 +1,26 @@
+{
+  "name": "notetaker",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha --watch test-backend/**/*.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "karma": "^0.12.18",
+    "karma-chrome-launcher": "^0.1.4",
+    "karma-jasmine": "^0.1.5"
+  },
+  "dependencies": {
+    "body-parser": "^1.5.1",
+    "express": "^4.7.0",
+    "jwt-simple": "^0.2.0",
+    "morgan": "^1.2.2",
+    "uuid": "^1.4.1"
+  }
+}

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Notetaker API</title>
+
+    <!-- Bootstrap -->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/css.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div id="mainRow" class="col-md-12">
+                <!--Login API -->
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                          <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                              /api/login <span class="pull-right">POST</span>
+                            </a>
+                          </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
+                          <div class="panel-body">
+                            Det direkta POST anropet till /api/login tar ett JSON objekt innehållande användarnamn och lösenord ifall anvädaren finns registrerad och lösenordet är korrekt så ges en token i svar som bekräftar att användaren är inloggad. 
+
+                            EX data: {"username":"martin","password":"apanssonson"}
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Users API -->
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                          <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                              /api/users <span class="pull-right">POST</span>
+                            </a>
+                          </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
+                          <div class="panel-body">
+                            Det direkta POST anropet till /api/users görs för att registrera en ny användare. Datan som behöver skickas med är ett JSON object enligt följande:
+                            {"username":"martin","password":"apanssonson","passwordConfirmation":"apanssonson"}
+
+                            Om skapandet lyckades så ges svaret 201(CREATED). Vid fel: 401 (Unauthorized).
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <!--UsersName API -->
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                          <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseUserName" aria-expanded="true" aria-controls="collapseUserName">
+                              /api/users/check-availability/"username" <span class="pull-right">GET</span>
+                            </a>
+                          </h4>
+                        </div>
+                        <div id="collapseUserName" class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
+                          <div class="panel-body">
+                            Används för att kontrollera om ett användarnamn är ledigt/giltigt eller inte. Används: <a href="http://localhost:3000/api/users/check-availability/martin">http://localhost:3000/api/users/check-availability/martin</a>
+                            <br><br><p>Kan ge svaren: {"username":"martin","available":true} eller {"username":"martin","available":false}</p>
+
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Notes API -->
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                          <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                              /api/notes <span class="pull-right">GET</span>
+                            </a>
+                          </h4>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
+                          <div class="panel-body">
+                            Ger en lista på användarens alla notes. Kräver att användaren skickar med en giltig inloggningstoken i headern: authentication-token
+
+                            <br><br><p>Exempel på svar: [{"id":"032c2b99-1ab3-425d-b22b-833a940f3c1b","title":"hej","_sourceData":{"id":"032c2b99-1ab3-425d-b22b-833a940f3c1b","title":"hej"}}]</p>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <!--NotesAdd API -->
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                          <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseadd" aria-expanded="true" aria-controls="collapseadd">
+                              /api/notes <span class="pull-right">POST</span>
+                            </a>
+                          </h4>
+                        </div>
+                        <div id="collapseadd" class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
+                          <div class="panel-body">
+                            Skapar en ny note POST datan som måste skickas med behöver ha följande utseende: <br>{"noteData":{"title":"myTitel","text":"myText"}}<br><br>
+
+                            Kräver att användaren skickar med en giltig inloggningstoken i headern: authentication-token
+
+                            <br><br><p>Exempel på svar: {"id":"032c2b99-1ab3-425d-b22b-833a940f3c1b","userId":"6348b8d1-d153-47a9-b1e3-d94da7d0da1a","title":"hej","text":"sds","_sourceData":{"title":"hej","text":"sds","userId":"6348b8d1-d153-47a9-b1e3-d94da7d0da1a","id":"032c2b99-1ab3-425d-b22b-833a940f3c1b"}}</p>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <!--NotesSpecific API -->
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                          <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapsens" aria-expanded="true" aria-controls="collapsens">
+                              /api/notes/"noteId" <span class="pull-right">GET</span>
+                            </a>
+                          </h4>
+                        </div>
+                        <div id="collapsens" class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
+                          <div class="panel-body">
+                             Hämtar en specifik note baserat på id'et. Anrop:  /api/notes/032c2b99-1ab3-425d-b22b-833a940f3c1b
+
+                            Kräver att användaren skickar med en giltig inloggningstoken i headern: authentication-token
+
+                            <br><br><p>Exempel på svar: {"id":"032c2b99-1ab3-425d-b22b-833a940f3c1b","userId":"6348b8d1-d153-47a9-b1e3-d94da7d0da1a","title":"hej","text":"sds","_sourceData":{"title":"hej","text":"sds","userId":"6348b8d1-d153-47a9-b1e3-d94da7d0da1a","id":"032c2b99-1ab3-425d-b22b-833a940f3c1b"}}</p>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <!--NotesUpdate API -->
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                          <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseUpdate" aria-expanded="true" aria-controls="collapseUpdate">
+                              /api/notes/"noteId" <span class="pull-right">PUT</span>
+                            </a>
+                          </h4>
+                        </div>
+                        <div id="collapseUpdate" class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
+                          <div class="panel-body">
+                             Uppdaterar en specifik note baserat på noteId. Anrop:<br>  /api/notes/ca4c5eea-aa7e-4a70-8412-4bba195e46cd<br><br>
+
+                             Exempel på data som behöver skickas med: <br>
+                             {"noteData":{"id":"ca4c5eea-aa7e-4a70-8412-4bba195e46cd","userId":"89ff5f91-bf86-4c53-9410-ddcb068b3221","title":"myTitel2","text":"myText2","_sourceData":{"title":"myTitel","text":"myText","userId":"89ff5f91-bf86-4c53-9410-ddcb068b3221","id":"ca4c5eea-aa7e-4a70-8412-4bba195e46cd"}}}<br><br>
+
+                            Kräver att användaren skickar med en giltig inloggningstoken i headern: authentication-token
+
+                            <br><br><p>Exempel på svar: {"id":"ca4c5eea-aa7e-4a70-8412-4bba195e46cd","userId":"89ff5f91-bf86-4c53-9410-ddcb068b3221","title":"myTitel2","text":"myText2","_sourceData":{"title":"myTitel2","text":"myText2","userId":"89ff5f91-bf86-4c53-9410-ddcb068b3221","id":"ca4c5eea-aa7e-4a70-8412-4bba195e46cd"}}</p>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <!--NotesDelete API -->
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                          <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseDelete" aria-expanded="true" aria-controls="collapseDelete">
+                              /api/notes/"noteId" <span class="pull-right">DELETE</span>
+                            </a>
+                          </h4>
+                        </div>
+                        <div id="collapseDelete" class="panel-collapse collapse out" role="tabpanel" aria-labelledby="headingOne">
+                          <div class="panel-body">
+                             Tar bort en specifik note baserat på noteId. Anrop:<br>  /api/notes/ca4c5eea-aa7e-4a70-8412-4bba195e46cd<br><br>
+
+                            Kräver att användaren skickar med en giltig inloggningstoken i headern: authentication-token
+
+                            <br><br><p>Exempel på svar: {"id":"ca4c5eea-aa7e-4a70-8412-4bba195e46cd","userId":"89ff5f91-bf86-4c53-9410-ddcb068b3221","title":"myTitel2","text":"myText2","_sourceData":{"title":"myTitel2","text":"myText2","userId":"89ff5f91-bf86-4c53-9410-ddcb068b3221","id":"ca4c5eea-aa7e-4a70-8412-4bba195e46cd"}}</p>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
