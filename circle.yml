@@ -1,11 +1,6 @@
 dependencies:
   pre:
     - rm -rf node_modules
-
-test:
-  post:
-    - npm run build
-
 deployment:
   prod:
     branch: master
