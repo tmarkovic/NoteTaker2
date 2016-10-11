@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --inline --progress --port 8080",
-    "build": "rimraf dist && webpack --config conf/webpack.prod.js --progress --profile --bail",
+    "build": "rimraf dist && webpack --config conf/webpack.prod.js --progress --profile",
     "lite": "lite-server",
     "postinstall": "typings install",
     "tsc": "tsc",
