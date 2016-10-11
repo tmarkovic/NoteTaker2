@@ -1,7 +1,9 @@
+test:
+  post:
+    - npm run build
+
 deployment:
   prod:
     branch: master
-    commands:
-    - npm run build
     heroku:
       appname: notetaker2
