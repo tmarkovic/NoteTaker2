@@ -11,7 +11,7 @@
     "build": "rimraf dist && webpack --config conf/webpack.prod.js --progress --profile",
     "lite": "lite-server",
     "postinstall": "typings install",
-    "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress",
+    "heroku-postbuild": "webpack --config conf/webpack.prod.js --progress --profile",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "typings": "typings"
