@@ -1,0 +1,11 @@
+<div class="tabs">
+	<ul>
+		<li *ngFor="let tab of tabs" (click)="selectTab(tab)" [class.is-active]="tab.isActive">
+			<a>
+				<span class="icon is-small"><i class="fa fa-{{tab.iconName}}"></i></span>
+				<span>{{tab.title}}</span>
+			</a>
+		</li>
+	</ul>
+</div>
+<ng-content></ng-content>

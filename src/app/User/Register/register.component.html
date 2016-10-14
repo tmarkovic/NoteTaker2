@@ -1,13 +1,23 @@
-<p class="control has-icon">
-  <input class="input" type="email" placeholder="Email">
-  <i class="fa fa-envelope"></i>
-</p>
-<p class="control has-icon">
-  <input class="input" type="password" placeholder="Password">
-  <i class="fa fa-lock"></i>
-</p>
-<p class="control">
-  <button class="button is-success">
-    Login
+<form [formGroup]="form">
+	<p class="control has-icon">
+		<input class="input" type="text" formControlName="username" placeholder="Username">
+		<i class="fa fa-user"></i>
+		<validation [control]="form.controls.username"></validation>
+	</p>
+	<p class="control has-icon">
+		<input class="input" type="password" formControlName="password" placeholder="Password">
+		<i class="fa fa-lock"></i>
+	</p>
+	<validation [control]="form.controls.password"></validation>
+	<p class="control has-icon">
+		<input class="input" type="password" formControlName="passwordConfirmation" placeholder="Repeat password">
+		<i class="fa fa-lock"></i>
+	</p>
+	<validation [control]="form.controls.password"></validation>
+	<p class="control">
+		<button class="button is-success" [ngClass]="{'is-disabled': !form.valid}" type="submit" (click)="submitUser()">
+    Register
   </button>
-</p>
+	</p>
+</form>
+<p *ngIf="result">{{result}}</p>

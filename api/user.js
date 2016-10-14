@@ -56,6 +56,7 @@ function validateNewUserForm(newUser) {
  * @param {Object} res response
  */
 exports.createUser = function (req, res) {
+    console.log(req.body);
     var userForm = validateNewUserForm(req.body);
     if(!userForm.error) {
         var user = User.create(userForm);
