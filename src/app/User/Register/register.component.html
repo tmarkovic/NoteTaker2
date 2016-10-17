@@ -1,24 +1,35 @@
+<div *ngIf="isSuccess" class="notification" [ngClass]="isSuccess ? 'is-success' : 'is-danger'">
+	<button class="delete"></button> User was succesfully created!
+	</div>
 <form [formGroup]="form">
-	<p class="control has-icon">
-		<input class="input" type="text" formControlName="username" placeholder="Username">
+	<p class="control has-icon" [class.is-loading]="usernameControl.pending">
+		<input class="input" [ngClass]="{'is-danger': (!usernameControl.valid && usernameControl.touched), 'is-success': usernameControl.valid && !usernameControl.pristine}"
+			type="text" [(ngModel)]="newUser.username" formControlName="username" placeholder="Username">
 		<i class="fa fa-user"></i>
-		<validation [control]="form.controls.username"></validation>
+
+		<validation [controlName]="'Username'" [control]="usernameControl"></validation>
 	</p>
+
+
 	<p class="control has-icon">
-		<input class="input" type="password" formControlName="password" placeholder="Password">
+		<input class="input" [ngClass]="{'is-danger': (!passwordControl.valid && passwordControl.touched), 'is-success': passwordControl.valid && !passwordControl.pristine}"
+			type="password" [(ngModel)]="newUser.password" formControlName="password" placeholder="Password">
 		<i class="fa fa-lock"></i>
-	<validation [control]="form.controls.password"></validation>
-		
+		<validation [controlName]="'Password'" [control]="passwordControl"></validation>
 	</p>
+
 	<p class="control has-icon">
-		<input class="input" type="password" formControlName="passwordConfirmation" placeholder="Repeat password">
+		<input class="input" type="password" [ngClass]="{'is-danger': (!passwordConfirmationControl.valid && passwordConfirmationControl.touched), 'is-success': passwordConfirmationControl.valid && !passwordConfirmationControl.pristine}"
+			[(ngModel)]="newUser.passwordConfirmation" formControlName="passwordConfirmation" placeholder="Repeat password">
 		<i class="fa fa-lock"></i>
 	</p>
-	<validation [control]="form.controls.password"></validation>
+	<validation [controlName]="'Password confirmation'" [control]="passwordConfirmationControl"></validation>
+
 	<p class="control">
-		<button class="button is-success" [ngClass]="{'is-disabled': !form.valid}" type="submit" (click)="submitUser()">
+		<button class="button is-success" [ngClass]="{'is-disabled': !form.valid, 'is-loading': isLoading}" type="submit" (click)="submitUser()">
     Register
   </button>
 	</p>
+
+
 </form>
-<p *ngIf="result">{{result}}</p>

@@ -10,7 +10,7 @@ var morgan  = require('morgan');
 var settings = require('./config.json');
 
 // serve static assets
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // connect logger middleware (this will not include requests of static files as
 // this is added after the static middleware)

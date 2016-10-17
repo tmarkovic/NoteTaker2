@@ -7,8 +7,8 @@
 					<tab title="Login" iconName="lock">
 						<login></login>
 					</tab>
-					<tab title="Register" iconName="user">
-						<register [result]="result | async" (registerUser)="registerUser($event)"></register>
+					<tab title="Register" [isActive]="true" iconName="user">
+						<register [result]="result" (registerUser)="registerUser($event)"></register>
 					</tab>
 				</tabs>
 			</div>

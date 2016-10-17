@@ -1,3 +1,4 @@
+import { ValidationModule } from './Shared/Validation/validation.module';
 import { AboutComponent } from './About/about.component';
 import { NavigationComponent } from './Shared';
 import { HomeComponent } from './Home/home.component';
@@ -14,6 +15,7 @@ import { FormsModule } from '@angular/forms';
         UserModule,
         AppRoutingModule,
         FormsModule,
+        ValidationModule
     ],
     exports: [BrowserModule],
     declarations: [AppComponent, HomeComponent, NavigationComponent, AboutComponent],
