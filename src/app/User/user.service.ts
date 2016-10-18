@@ -7,7 +7,7 @@ import { AddUserModel } from './Models';
 
 @Injectable()
 export class UserService {
-    baseUri: string = "http://localhost:4500/api/";
+    baseUri: string = "/api/";
     baseHeaders: Headers;
     constructor(private http: Http) {
 
