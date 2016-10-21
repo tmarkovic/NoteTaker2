@@ -1,0 +1,59 @@
+#flash-message {
+    position: fixed;
+    display: block;
+    z-index: 101;
+    top: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    opacity: 100;
+    -webkit-box-shadow: 0 0 5px black;
+    -moz-box-shadow:    0 0 5px black;
+    box-shadow:         0 0 5px black;
+    padding: 20px 20px;
+    -webkit-transition: top 0.5s ease-out;  
+    -moz-transition: top 0.5s ease-out;
+    -ms-transition: top 0.5s ease-out;
+    -o-transition: top 0.5s ease-out;
+    transition: top 0.5s ease-out;
+    transition: opacity 0.2s ease-out;
+}
+
+#flash-message.is-danger {
+    background: #ff3860;
+}
+
+#flash-message.is-success {
+    background: #23d160;
+}
+
+#flash-message.is-info {
+    background: #3273dc;
+}
+
+#flash-message.is-warning {
+    background: #ffdd57;
+}
+
+#flash-message h2 {
+    color: #FFF;
+}
+
+
+
+a.close-message {
+    color: seashell;    
+}
+
+a.close-message:hover {
+    color: #FFF;    
+}
+
+#flash-message.active {
+    top: 0;
+}
+
+#flash-message.inactive {
+    opacity: 0;
+    display: hidden;
+}

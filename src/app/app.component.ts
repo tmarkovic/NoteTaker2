@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 @Component({
     selector: 'note-taker',
     template: `
+    	<flash-message></flash-message>
     <navigation></navigation>
         <router-outlet></router-outlet>
           <footer class="footer">

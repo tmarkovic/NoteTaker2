@@ -1,13 +1,26 @@
-<p class="control has-icon">
-	<input class="input" type="email" [(ngModel)]="username" placeholder="Email">
-	<i class="fa fa-envelope"></i>
-</p>
-<p class="control has-icon">
-	<input class="input" type="password" [(ngModel)]="password" placeholder="Password">
-	<i class="fa fa-lock"></i>
-</p>
-<p class="control">
-	<button class="button is-success">
+<div *ngIf="(result | async)?.isSuccess" class="notification" [ngClass]="(result | async)?.isSuccess ? 'is-success' : 'is-danger'">
+	{{(result | async)?.isSuccess ? 'Login successful' : 'Username or password is incorrect'}}
+</div>
+<form [formGroup]="form" novalidate>
+	<label class="label">Username</label>
+	<p class="control has-icon">
+		<input class="input" type="text" [ngClass]="{'is-danger': (!usernameControl.valid && usernameControl.touched), 'is-success': usernameControl.valid && !usernameControl.pristine}"
+			[(ngModel)]="loginUser.username" formControlName="username" placeholder="Username">
+		<i class="fa fa-user"></i>
+		<validation [controlName]="'Username'" [control]="usernameControl"></validation>
+
+	</p>
+	<label class="label">Password</label>
+	<p class="control has-icon">
+		<input class="input" type="password" [ngClass]="{'is-danger': (!passwordControl.valid && passwordControl.touched), 'is-success': passwordControl.valid && !passwordControl.pristine}"
+			[(ngModel)]="loginUser.password" formControlName="password" placeholder="Password">
+		<i class="fa fa-lock"></i>
+		<validation [controlName]="'Password'" [control]="passwordControl"></validation>
+	</p>
+	<p class="control">
+		<button class="button is-success" [ngClass]="{'is-disabled': !form.valid, 'is-loading': (result | async)?.isLoading}" type="submit"
+			(click)="login()">
     Login
   </button>
-</p>
+	</p>
+</form>

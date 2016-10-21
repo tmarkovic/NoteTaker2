@@ -8,3 +8,8 @@ export interface UsernameAvailability {
     username: string;
     available: boolean;
 }
+
+export interface UserLogin {
+    username: string;
+    password: string;
+}

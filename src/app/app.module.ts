@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { UserModule } from './User';
 import { FormsModule } from '@angular/forms';
+import { FlashMessageModule } from './Shared/FlashMessage/';
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import { FormsModule } from '@angular/forms';
         UserModule,
         AppRoutingModule,
         FormsModule,
-        ValidationModule
+        ValidationModule,
+        FlashMessageModule
     ],
     exports: [BrowserModule],
     declarations: [AppComponent, HomeComponent, NavigationComponent, AboutComponent],

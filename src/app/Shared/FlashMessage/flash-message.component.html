@@ -1,0 +1,10 @@
+<section id="flash-message" class="section {{(flashMessage | async)?.type}} slide-down" [ngClass]="(flashMessage | async) ? 'active': 'inactive'">
+	<div class="container">
+		<div class="columns">
+			<div class="column is-half is-offset-one-quarter">
+				<h2 class="subtitle">{{(flashMessage | async)?.message}}</h2>
+			</div>
+			<div class="column"><span class="icon is-small"><a href="#" (click)="hide($event)" class="close-message"><i class="fa fa-close"></i></a></span></div>
+		</div>
+	</div>
+</section>

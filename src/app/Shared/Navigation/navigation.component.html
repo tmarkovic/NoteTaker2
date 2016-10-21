@@ -1,36 +1,30 @@
-<nav class="nav ">
-  <div class="nav-left">
-    <a class="nav-item is-brand" routerLink="home">
-      <h1>NoteTaker</h1>
-    </a>
-  </div>
+<nav class="nav has-shadow">
+	<div class="nav-left">
+		<a class="nav-item is-brand" routerLink="home">
+			<h1>NoteTaker</h1>
+		</a>
+	</div>
 
-  <span class="nav-toggle">
-    <span></span>
-  <span></span>
-  <span></span>
-  </span>
 
-  <div class="nav-right nav-menu">
-    <a class="nav-item" routerLink="/">
+
+	<div class="nav-right nav-menu">
+		<a class="nav-item is-tab" routerLink="/" [routerLinkActive]="'is-active'">
       Home
     </a>
-    <a class="nav-item" href="#">
+		<a class="nav-item is-tab" href="#" >
       Notes
     </a>
-    <a class="nav-item" routerLink="about">
+		<a class="nav-item is-tab" routerLink="about" [routerLinkActive]="'is-active'">
       About
     </a>
 
-    <span class="nav-item">
+		<span class="nav-item">
       <a class="button is-primary" routerLink="user">
         <span class="icon">
           <i class="fa fa-sign-in"></i>
         </span>
-    <span>Sign in</span>
-    </a>
-    </span>
-  </div>
+		<span>Sign in</span>
+		</a>
+		</span>
+	</div>
 </nav>
-
-

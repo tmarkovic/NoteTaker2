@@ -1,14 +1,18 @@
-<section class="section">
+<section class="section ">
 	<div class="container">
 		<div class="columns">
 			<div class="column is-4 is-offset-4">
 
 				<tabs>
-					<tab title="Login" iconName="lock">
-						<login></login>
+					<tab title="Login" [isActive]="true" iconName="lock">
+						<div class="box">
+							<login [result]="login$" (authenticateUser)="authenticateUser($event)"></login>
+						</div>
 					</tab>
-					<tab title="Register" [isActive]="true" iconName="user">
-						<register [result]="result" (registerUser)="registerUser($event)"></register>
+					<tab title="Register" iconName="user">
+						<div class="box">
+							<register [result]="register$" (registerUser)="registerUser($event)"></register>
+						</div>
 					</tab>
 				</tabs>
 			</div>

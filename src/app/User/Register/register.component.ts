@@ -1,4 +1,6 @@
-import { Observable } from 'rxjs/Observable';
+
+import { LoadingModel } from '../../Shared/Models';
+import { ReplaySubject } from 'rxjs';
 import { ValidationService } from './../../Shared/Validation/validation.service';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
@@ -11,17 +13,15 @@ import { AddUserModel } from '../Models';
 })
 
 export class RegisterComponent implements OnInit {
-	@Input() result: Observable<any>;
+	@Input() result: ReplaySubject<LoadingModel>;
 	@Output() registerUser: EventEmitter<AddUserModel> = new EventEmitter<AddUserModel>();
-	isLoading: boolean;
-	isSuccess: boolean;
 	newUser: AddUserModel;
 	form: FormGroup;
 	usernameControl: FormControl;
 	passwordControl: FormControl;
 	passwordConfirmationControl: FormControl;
 
-	constructor(private formBuilder: FormBuilder, private validationService: ValidationService) {
+	constructor(private validationService: ValidationService) {
 
 
 		this.newUser = {
@@ -57,11 +57,9 @@ export class RegisterComponent implements OnInit {
 
 	ngOnInit() {
 		this.result.subscribe(
-			x => { this.isLoading = true; console.log(x) },
-			error => { this.isSuccess = false; this.form.updateValueAndValidity({ onlySelf: false, emitEvent: true }) },
+			value => value,
+			error => { this.form.updateValueAndValidity({ onlySelf: false, emitEvent: true }) },
 			() => {
-				this.isLoading = false;
-				this.isSuccess = true;
 				this.form.reset();
 			}
 		)
