@@ -1,6 +1,4 @@
-<div *ngIf="(result | async)?.isSuccess" class="notification" [ngClass]="(result | async)?.isSuccess === true ? 'is-success' : 'is-danger'">
-	User was succesfully created! <span class="icon"><i class="fa fa-check"></i></span>
-</div>
+
 <form [formGroup]="form">
 	<label class="label">Username</label>
 	<p class="control has-icon" [class.is-loading]="usernameControl.pending">

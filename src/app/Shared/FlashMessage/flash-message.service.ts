@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { FlashMessage } from './flash-message';
 import { Subject } from 'rxjs/Subject';
 import { Injectable } from '@angular/core';
@@ -5,25 +6,33 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class FlashMessageService {
     private showMessage$: Subject<FlashMessage>;
+    private showNext$: Subject<any>;
+    private messages: FlashMessage[];
     constructor() {
+        this.messages = new Array<FlashMessage>();
+        this.showNext$ = new Subject<any>();
         this.showMessage$ = new Subject<FlashMessage>();
     }
 
     showMessage = (message: FlashMessage) => {
-        setTimeout(() => {
+        if (this.messages.length === 0) {
+            console.log(message.message);
+            this.messages.push(message);
             this.showMessage$.next(message);
-
-        }, 300)
-        if (message.duration > 0) {
-            setTimeout(() => {
-                this.showMessage$.complete();
-            }, message.duration);
+        } else {
+            console.log(message.message);
+            this.messages.push(message);
         }
 
 
     }
-
-    getMessages(): Subject<FlashMessage> {
-        return this.showMessage$;
+    messageClosed() {
+        console.log(this.messages.shift());
+        if (this.messages.length > 0) {
+            this.showMessage$.next(this.messages[0]);
+        }
+    }
+    getMessages(): Observable<FlashMessage> {
+        return this.showMessage$.asObservable();
     }
 }

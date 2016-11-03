@@ -1,3 +1,4 @@
+import { UserComponent } from './User/user.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AboutComponent } from './About/about.component';

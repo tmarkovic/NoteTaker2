@@ -1,4 +1,5 @@
-import { Subject } from 'rxjs/Subject';
+import { Subject, Observable } from 'rxjs';
+import { TimeInterval } from 'rxjs/Rx';
 import { Component, OnInit } from '@angular/core';
 import { FlashMessageService } from './flash-message.service';
 import { FlashMessage } from './flash-message';
@@ -10,13 +11,19 @@ import { FlashMessage } from './flash-message';
 })
 
 export class FlashMessageComponent implements OnInit {
-	show: boolean = false;
 	flashMessage: Subject<FlashMessage>;
+	timer: Observable<number>;
 
 	constructor(private flashMessageService: FlashMessageService) {
+
 		this.flashMessage = new Subject<FlashMessage>();
 		this.flashMessageService.getMessages().subscribe(
-			flashMessage => this.flashMessage.next(flashMessage),
+			flashMessage => {
+				this.flashMessage.next(flashMessage);
+				if (flashMessage.duration > 0) {
+					this.timer = Observable.interval(flashMessage.duration / 100).take(101).finally(() => this.hide());
+				}
+			},
 			err => err,
 			() => this.hide()
 		)
@@ -26,7 +33,14 @@ export class FlashMessageComponent implements OnInit {
 
 	}
 
-	hide() {
+	hide(event?: Event) {
+		if (event) {
+			event.preventDefault();
+		}
+		this.timer = null;
 		this.flashMessage.next(null);
+		setTimeout(() => {
+			this.flashMessageService.messageClosed();
+		}, 90);
 	}
 }

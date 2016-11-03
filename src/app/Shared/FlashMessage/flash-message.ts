@@ -5,9 +5,30 @@ export enum FlashMessageType {
     INFO,
 };
 
-export interface FlashMessage {
-    type: string;
-    message: string;
-    duration?: number;
+export class FlashMessage {
+    private _types: string[] = ['is-danger', 'is-warning', 'is-success', 'is-info'];
+    private _type: string = 'is-info';
+    private _message: string;
+    private _duration?: number;
+
+
+    constructor(private flashMessageType: FlashMessageType, private __message?: string, private __duration?: number, callbackFn?: () => void) {
+        this._type = this._types[flashMessageType];
+        this._message = __message;
+        this._duration = __duration;
+    }
+
+    get duration(): number {
+        return this._duration;
+    }
+
+    get type(): string {
+        return this._type;
+    }
+
+    get message(): string {
+        return this._message;
+    }
+
 }
 

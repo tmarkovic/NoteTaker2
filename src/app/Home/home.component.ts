@@ -1,6 +1,6 @@
 import { FlashMessageService } from './../Shared/FlashMessage/flash-message.service';
 import { Component, OnInit } from '@angular/core';
-import { FlashMessage } from './../Shared/FlashMessage/flash-message';
+import { FlashMessage, FlashMessageType } from './../Shared/FlashMessage/flash-message';
 
 @Component({
     selector: 'home',
@@ -13,11 +13,5 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.flashMessageService.showMessage(
-            <FlashMessage>{
-                type: 'is-success',
-                duration: 0,
-                message: 'message'
-            });
     }
 }

@@ -9,6 +9,7 @@ import '@angular/forms';
 
 // RxJS
 import 'rxjs';
+import 'Rx';
 
 import 'bulma/css/bulma.css';
 import 'font-awesome/css/font-awesome.min.css';

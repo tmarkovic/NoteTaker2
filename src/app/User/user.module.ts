@@ -1,3 +1,5 @@
+import { NotesModule } from './Notes/notes.module';
+import { LoginRegisterComponent } from './LoginRegister/login-register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
@@ -17,9 +19,24 @@ import { ValidationComponent } from '../Shared/Validation/validation.component';
 
 
 @NgModule({
-    imports: [HttpModule, UserRoutingModule, BrowserModule, FormsModule, ReactiveFormsModule, ValidationModule],
+    imports: [
+        HttpModule,
+        UserRoutingModule,
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ValidationModule,
+        NotesModule
+    ],
     exports: [UserComponent],
-    declarations: [NotesComponent, RegisterComponent, LoginComponent, UserComponent, TabsComponent, TabComponent],
+    declarations: [
+        RegisterComponent,
+        LoginComponent,
+        UserComponent,
+        TabsComponent,
+        TabComponent,
+        LoginRegisterComponent
+    ],
     providers: [UserService],
 })
 export class UserModule { }
