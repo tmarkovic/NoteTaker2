@@ -7,6 +7,15 @@ import { NotesService } from './notes.service';
 import { NoteModel } from './../../Shared/Models/note.model';
 import { Component, OnInit } from '@angular/core';
 
+/**
+ * Container class for the notes page
+ * Responsible for supplying subscribing components
+ * with data and acts on received events
+ * f
+ * @export
+ * @class NotesComponent
+ * @implements {OnInit}
+ */
 @Component({
     selector: 'notes',
     templateUrl: 'notes.component.html',
@@ -26,6 +35,14 @@ export class NotesComponent implements OnInit {
         isLoading: true,
         isSuccess: false
     };
+    /**
+     * Creates an instance of NotesComponent.
+     * 
+     * @param {NotesService} notesService
+     * @param {FlashMessageService} flashMessageService
+     * 
+     * @memberOf NotesComponent
+     */
     constructor(private notesService: NotesService, private flashMessageService: FlashMessageService) {
         this.createNoteResult = new ReplaySubject<LoadingModel>();
         this.updateNoteResult = new ReplaySubject<LoadingModel>();
@@ -36,8 +53,23 @@ export class NotesComponent implements OnInit {
         this.notesService.getNotes().subscribe(res => this.noteList = res);
 
     }
-    ngOnInit() {}
 
+    /**
+     * 
+     * 
+     * 
+     * @memberOf NotesComponent
+     */
+    ngOnInit() { }
+
+    /**
+     * Atemptes to create a new note 
+     * and let subscribing components know of the result
+     * 
+     * @param {NoteModel} note
+     * 
+     * @memberOf NotesComponent
+     */
     createNote(note: NoteModel) {
         this.loading = new LoadingModel();
         this.createNoteResult.next(this.loading);
@@ -52,6 +84,13 @@ export class NotesComponent implements OnInit {
         });
     }
 
+    /**
+     * Tries to retrieve a specific note 
+     * and push it to subscribing components
+     * @param {NoteModel} note
+     * 
+     * @memberOf NotesComponent
+     */
     getNote(note: NoteModel) {
         this.currentNote.next(note);
         this.notesService.getNote(note.id).subscribe(
@@ -64,6 +103,13 @@ export class NotesComponent implements OnInit {
         );
     }
 
+    /**
+     * Tries to update a specific note
+     * 
+     * @param {NoteModel} note
+     * 
+     * @memberOf NotesComponent
+     */
     updateNote(note: NoteModel) {
         this.loading = new LoadingModel();
         this.updateNoteResult.next(this.loading);
@@ -86,6 +132,13 @@ export class NotesComponent implements OnInit {
     }
 
 
+    /**
+     * Tries to delete a specific note
+     * and update subscribing components
+     * @param {NoteModel} note
+     * 
+     * @memberOf NotesComponent
+     */
     deleteNote(note: NoteModel) {
         this.loading = new LoadingModel();
         this.deleteNoteResult.next(this.loading);
@@ -95,6 +148,7 @@ export class NotesComponent implements OnInit {
             this.flashMessageService.showMessage(
                 new FlashMessage(FlashMessageType.SUCCES, `Note: ${note['_sourceData'].title} was successfuly deleted!`, 1500)
             );
+
             let targetNote = this.noteList.findIndex(n => n.id === deletedNote.id);
             this.noteList.splice(targetNote, 1);
             if (targetNote > 0) {

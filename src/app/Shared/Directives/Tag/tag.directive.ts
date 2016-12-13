@@ -48,7 +48,7 @@ export class TagDirective implements AfterViewInit {
 		sm: 'small',
 		md: 'medium',
 		lg: 'large',
-	})
+	});
 
 	/**
 	 * Creates an instance of TagDirective.
@@ -106,7 +106,7 @@ export class TagDirective implements AfterViewInit {
 		if (sizes.hasOwnProperty(sizeName)) {
 			return sizes[sizeName];
 		} else {
-			return ''
+			return '';
 		}
 	}
 }

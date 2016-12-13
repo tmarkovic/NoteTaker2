@@ -6,12 +6,12 @@
 				<tabs>
 					<tab title="Login" [isActive]="true" iconName="lock">
 						<div class="box">
-							<login [result]="login$" (authenticateUser)="authenticateUser($event)"></login>
+							<login [result]="login" (authenticateUser)="authenticateUser($event)"></login>
 						</div>
 					</tab>
 					<tab title="Register" iconName="user">
 						<div class="box">
-							<register [result]="register$" (registerUser)="registerUser($event)"></register>
+							<register [result]="register" (registerUser)="registerUser($event)"></register>
 						</div>
 					</tab>
 				</tabs>

@@ -8,20 +8,48 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { AddUserModel } from '../Models';
 
+/**
+ * Registration form for the application
+ * 
+ * @export
+ * @class RegisterComponent
+ * @implements {OnInit}
+ */
 @Component({
 	selector: 'register',
 	templateUrl: 'register.component.html'
 })
 
 export class RegisterComponent implements OnInit {
+	/**
+	 * Emits event information supplied by this components parent
+	 * 
+	 * @type {ReplaySubject<LoadingModel>}
+	 * @memberOf RegisterComponent
+	 */
 	@Input() result: ReplaySubject<LoadingModel>;
+	/**
+	 * Outgoing event signaling that the register form has been submited
+	 * 
+	 * @type {EventEmitter<AddUserModel>}
+	 * @memberOf RegisterComponent
+	 */
 	@Output() registerUser: EventEmitter<AddUserModel> = new EventEmitter<AddUserModel>();
+
 	newUser: AddUserModel;
 	form: FormGroup;
 	usernameControl: FormControl;
 	passwordControl: FormControl;
 	passwordConfirmationControl: FormControl;
 
+	/**
+	 * Creates an instance of RegisterComponent.
+	 * 
+	 * @param {ValidationService} validationService
+	 * @param {FlashMessageService} flashMessageService
+	 * 
+	 * @memberOf RegisterComponent
+	 */
 	constructor(private validationService: ValidationService, private flashMessageService: FlashMessageService) {
 
 
@@ -31,6 +59,7 @@ export class RegisterComponent implements OnInit {
 			passwordConfirmation: ''
 		};
 
+		// Creates a new formgroup containing controls and their validation functions
 		this.form = new FormGroup({
 			username: new FormControl(
 				this.newUser.username,
@@ -51,11 +80,18 @@ export class RegisterComponent implements OnInit {
 
 		);
 
+		// simplifies template binding
 		this.usernameControl = this.form.controls['username'] as FormControl;
 		this.passwordControl = this.form.controls['password'] as FormControl;
 		this.passwordConfirmationControl = this.form.controls['passwordConfirmation'] as FormControl;
 	}
 
+	/**
+	 * Logic for subscribing to supplied events
+	 * 
+	 * 
+	 * @memberOf RegisterComponent
+	 */
 	ngOnInit() {
 		this.result.subscribe(
 			value => value,
@@ -67,6 +103,11 @@ export class RegisterComponent implements OnInit {
 		);
 	}
 
+	/**
+	 * Emits event for user creation to parent component
+	 * 
+	 * @memberOf RegisterComponent
+	 */
 	submitUser() {
 		if (this.form.valid) {
 			this.registerUser.emit(this.newUser);

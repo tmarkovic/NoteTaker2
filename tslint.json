@@ -3,7 +3,7 @@
         "node_modules/codelyzer"
     ],
     "rules": {
-        "completed-docs": true,
+        "completed-docs": ["classes","functions","methods"],
         "use-input-property-decorator": true,
         "use-output-property-decorator": true,
         "use-host-property-decorator": true,
@@ -21,7 +21,6 @@
         "component-class-suffix": true,
         "directive-class-suffix": true,
         "import-destructuring-spacing": true,
-        "templates-use-public": true,
         "no-access-missing-member": true,
         "invoke-injectable": true,
         "class-name": true,
@@ -39,7 +38,7 @@
         "label-position": true,
         "max-line-length": [
             true,
-            140
+            170
         ],
         "member-access": false,
         "member-ordering": [
