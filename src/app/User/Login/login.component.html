@@ -1,6 +1,3 @@
-<div *ngIf="(result | async)?.isSuccess" class="notification" [ngClass]="(result | async)?.isSuccess ? 'is-success' : 'is-danger'">
-	{{(result | async)?.isSuccess ? 'Login successful' : 'Username or password is incorrect'}}
-</div>
 <form [formGroup]="form" novalidate>
 	<label class="label">Username</label>
 	<p class="control has-icon">

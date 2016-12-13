@@ -4,26 +4,30 @@
 			<h1>NoteTaker</h1>
 		</a>
 	</div>
-
-
-
 	<div class="nav-right nav-menu">
-		<a class="nav-item is-tab" routerLink="" [routerLinkActive]="'is-active'">
+		<a class="nav-item is-tab" routerLink="/home" [routerLinkActive]="'is-active'">
       Home
     </a>
-		<a class="nav-item is-tab" href="#" >
+		<a *ngIf="userService.isAuthenticated" class="nav-item is-tab" routerLink="/user/notes" [routerLinkActive]="'is-active'">
       Notes
     </a>
 		<a class="nav-item is-tab" routerLink="/about" [routerLinkActive]="'is-active'">
       About
     </a>
-
-		<span class="nav-item">
-      <a class="button is-primary" routerLink="user/login">
+		<span *ngIf="!userService.isAuthenticated" class="nav-item">
+      <a *ngIf="!userService.isAuthenticated" class="button is-primary" routerLink="user/login">
         <span class="icon">
           <i class="fa fa-sign-in"></i>
         </span>
 		<span>Sign in</span>
+		</a>
+		</span>
+		<span *ngIf="userService.isAuthenticated" class="nav-item">
+		<a class="button is-danger" (click)="logout($event)">
+			<span class="icon">
+          <i class="fa fa-sign-out"></i>
+        </span>
+		<span>Sign out</span>
 		</a>
 		</span>
 	</div>

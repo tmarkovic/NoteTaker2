@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
 
+/**
+ * Main bootstraped component for the application
+ * 
+ * @export AppComponent
+ * @class AppComponent
+ */
 @Component({
     selector: 'note-taker',
     template: `

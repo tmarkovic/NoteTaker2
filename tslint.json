@@ -3,30 +3,7 @@
         "node_modules/codelyzer"
     ],
     "rules": {
-        "directive-selector-name": [
-            true,
-            "camelCase"
-        ],
-        "component-selector-name": [
-            true,
-            "kebab-case"
-        ],
-        "directive-selector-type": [
-            true,
-            "attribute"
-        ],
-        "component-selector-type": [
-            true,
-            "element"
-        ],
-        "directive-selector-prefix": [
-            true,
-            "sg"
-        ],
-        "component-selector-prefix": [
-            true,
-            "sg"
-        ],
+        "completed-docs": true,
         "use-input-property-decorator": true,
         "use-output-property-decorator": true,
         "use-host-property-decorator": true,
@@ -60,7 +37,6 @@
             "tab"
         ],
         "label-position": true,
-        "label-undefined": true,
         "max-line-length": [
             true,
             140
@@ -84,9 +60,7 @@
         ],
         "no-construct": true,
         "no-debugger": true,
-        "no-duplicate-key": true,
         "no-duplicate-variable": true,
-        "no-empty": true,
         "no-eval": true,
         "no-inferrable-types": true,
         "no-shadowed-variable": true,
@@ -94,8 +68,6 @@
         "no-switch-case-fall-through": true,
         "no-trailing-whitespace": true,
         "no-unused-expression": true,
-        "no-unused-variable": true,
-        "no-unreachable": true,
         "no-use-before-declare": true,
         "no-var-keyword": true,
         "object-literal-sort-keys": false,
@@ -119,8 +91,7 @@
             "allow-null-check"
         ],
         "typedef-whitespace": [
-            true,
-            {
+            true, {
                 "call-signature": "nospace",
                 "index-signature": "nospace",
                 "parameter": "nospace",

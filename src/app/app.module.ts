@@ -12,6 +12,12 @@ import { UserModule } from './User';
 import { FormsModule } from '@angular/forms';
 import { FlashMessageModule } from './Shared/FlashMessage/';
 
+/**
+ * Main module for the application
+ * 
+ * @export
+ * @class AppModule
+ */
 @NgModule({
     imports: [
         BrowserModule,

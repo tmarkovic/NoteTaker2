@@ -2,7 +2,6 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { NoteModel } from '../../Shared/Models/note.model';
-import { BaseService } from '../../Shared/Services/BaseService';
 
 @Injectable()
 export class NotesService {

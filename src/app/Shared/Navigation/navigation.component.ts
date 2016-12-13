@@ -1,5 +1,6 @@
-import { Subject } from 'rxjs/Subject';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../User/user.service';
 
 
 @Component({
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: 'navigation.component.html'
 })
 export class NavigationComponent implements OnInit {
-    ngOnInit() {
-
+    constructor(private userService: UserService, private router: Router) {
     }
+
+    logout(event: Event) {
+        this.userService.logout();
+        this.router.navigate(['/user/login']);
+    }
+    ngOnInit() {}
 }
+

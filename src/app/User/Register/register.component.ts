@@ -1,12 +1,10 @@
 import { FlashMessageService } from './../../Shared/FlashMessage/flash-message.service';
 import { FlashMessage, FlashMessageType } from './../../Shared/FlashMessage/flash-message';
-
-
 import { LoadingModel } from '../../Shared/Models';
 import { ReplaySubject } from 'rxjs';
 import { ValidationService } from './../../Shared/Validation/validation.service';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { AddUserModel } from '../Models';
 
@@ -61,18 +59,17 @@ export class RegisterComponent implements OnInit {
 	ngOnInit() {
 		this.result.subscribe(
 			value => value,
-			error => { this.form.updateValueAndValidity({ onlySelf: false, emitEvent: true })},
+			error => { this.form.updateValueAndValidity({ onlySelf: false, emitEvent: true }); },
 			() => {
 				this.flashMessageService.showMessage(new FlashMessage(FlashMessageType.SUCCES, 'Registration successful, you may now sign in', 1500));
 				this.form.reset();
 			}
-		)
+		);
 	}
 
 	submitUser() {
-		console.log(this.newUser);
 		if (this.form.valid) {
 			this.registerUser.emit(this.newUser);
 		}
 	}
-}	
+}

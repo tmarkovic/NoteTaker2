@@ -5,7 +5,6 @@ import { FlashMessage, FlashMessageType } from './../../Shared/FlashMessage/flas
 
 import { NotesService } from './notes.service';
 import { NoteModel } from './../../Shared/Models/note.model';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -26,7 +25,7 @@ export class NotesComponent implements OnInit {
     loading: LoadingModel = {
         isLoading: true,
         isSuccess: false
-    }
+    };
     constructor(private notesService: NotesService, private flashMessageService: FlashMessageService) {
         this.createNoteResult = new ReplaySubject<LoadingModel>();
         this.updateNoteResult = new ReplaySubject<LoadingModel>();
@@ -37,8 +36,7 @@ export class NotesComponent implements OnInit {
         this.notesService.getNotes().subscribe(res => this.noteList = res);
 
     }
-    ngOnInit() {
-    }
+    ngOnInit() {}
 
     createNote(note: NoteModel) {
         this.loading = new LoadingModel();
@@ -58,9 +56,8 @@ export class NotesComponent implements OnInit {
         this.currentNote.next(note);
         this.notesService.getNote(note.id).subscribe(
 
-            note => {
-                console.log(note);
-                this.currentNote.next(note)
+            n => {
+                this.currentNote.next(n);
             },
             err => this.currentNote.error(err)
 
@@ -76,7 +73,7 @@ export class NotesComponent implements OnInit {
             this.flashMessageService.showMessage(
                 new FlashMessage(FlashMessageType.SUCCES, `Note: ${note['_sourceData'].title} was successfuly updated!`, 1500)
             );
-            this.noteList[this.noteList.findIndex(n => n.id == updatedNote.id)] = updatedNote;
+            this.noteList[this.noteList.findIndex(n => n.id === updatedNote.id)] = updatedNote;
             this.updateNoteResult.next(this.loading);
         },
             err => {
@@ -98,7 +95,7 @@ export class NotesComponent implements OnInit {
             this.flashMessageService.showMessage(
                 new FlashMessage(FlashMessageType.SUCCES, `Note: ${note['_sourceData'].title} was successfuly deleted!`, 1500)
             );
-            let targetNote = this.noteList.findIndex(n => n.id == deletedNote.id);
+            let targetNote = this.noteList.findIndex(n => n.id === deletedNote.id);
             this.noteList.splice(targetNote, 1);
             if (targetNote > 0) {
                 this.getNote(this.noteList[targetNote - 1]);
