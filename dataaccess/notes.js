@@ -64,7 +64,8 @@ module.exports = {
         }).map(function (n) {
             return {
                 id: n.id,
-                title: n.title
+                title: n.title,
+                color: n.color
             };
         });
     }

@@ -63,7 +63,7 @@ export class RegisterComponent implements OnInit {
 			value => value,
 			error => { this.form.updateValueAndValidity({ onlySelf: false, emitEvent: true })},
 			() => {
-				this.flashMessageService.showMessage(new FlashMessage(FlashMessageType.SUCCES, 'Registration successful, you may now sign in'));
+				this.flashMessageService.showMessage(new FlashMessage(FlashMessageType.SUCCES, 'Registration successful, you may now sign in', 1500));
 				this.form.reset();
 			}
 		)

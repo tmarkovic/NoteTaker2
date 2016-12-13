@@ -21,7 +21,7 @@ export class FlashMessageComponent implements OnInit {
 			flashMessage => {
 				this.flashMessage.next(flashMessage);
 				if (flashMessage.duration > 0) {
-					this.timer = Observable.interval(flashMessage.duration / 100).take(101).finally(() => this.hide());
+					this.timer = Observable.interval(flashMessage.duration / 100).take(101).finally(() => this.hide(null, flashMessage.callbackFn));
 				}
 			},
 			err => err,
@@ -33,7 +33,7 @@ export class FlashMessageComponent implements OnInit {
 
 	}
 
-	hide(event?: Event) {
+	hide(event?: Event, callbackFn?: () => void) {
 		if (event) {
 			event.preventDefault();
 		}
@@ -42,5 +42,8 @@ export class FlashMessageComponent implements OnInit {
 		setTimeout(() => {
 			this.flashMessageService.messageClosed();
 		}, 90);
+		if (callbackFn) {
+			callbackFn();
+		}
 	}
 }

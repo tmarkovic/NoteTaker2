@@ -2,7 +2,6 @@ import { LoadingModel } from './../../Shared/Models/loading.model';
 import { ReplaySubject } from 'rxjs';
 import { UserLogin } from './../Models/';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { UserService } from './../user.service';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
@@ -19,7 +18,7 @@ export class LoginComponent implements OnInit {
 	loginUser: UserLogin;
 
 
-	constructor(userService: UserService) {
+	constructor() {
 
 		this.loginUser = {
 			username: '',

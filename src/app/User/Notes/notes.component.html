@@ -3,21 +3,9 @@
 		<div class="columns">
 		</div>
 		<div class="columns">
-			<div class="column is-3">
-				<aside class="menu">
-					<p class="menu-label">
-						Notes
-					</p>
-					<ul class="menu-list">
-						<li><a href="#">Dashboard</a></li>
-						<li><a href="#">Customers</a></li>
-					</ul>
-				</aside>
+			<div class="column is-3" note-list (loadNote)="getNote($event)" [notes]="noteList">
 			</div>
-			<div class="column">
-				<textarea></textarea>
-			</div>
+			<div class="column" note-editor [updateResult]="updateNoteResult" [createResult]="createNoteResult" [deleteResult]="deleteNoteResult" [currentNote]="currentNote" (noteDeleted)="deleteNote($event)" (noteUpdated)="updateNote($event)" (noteSubmited)="createNote($event)"></div>
 		</div>
-
 	</div>
 </section>

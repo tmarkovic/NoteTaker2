@@ -1,38 +1,65 @@
 import { UsernameAvailability, UserLogin } from './Models/user.model';
 import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
+
 import { ErrorModel } from './../Shared/Models/error.model';
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, ResponseType } from '@angular/http';
 import { AddUserModel } from './Models';
 
 @Injectable()
 export class UserService {
-    baseUri: string = "http://localhost:4500/api/";
-    baseHeaders: Headers = new Headers();
+    API_ENDPOINT = process.env.API_ENDPOINT;
+    private _isAuthenticated: boolean = false;
 
     constructor(private http: Http) {
-        this.baseHeaders.append('Content-Type', 'application/json');
+        this._isAuthenticated = localStorage.getItem('token') != null;
 
     }
 
 
     addUser(newUser: AddUserModel) {
-        return this.http.post(`${this.baseUri}users`, JSON.stringify(newUser), { headers: this.baseHeaders })
+        return this.http.post(`${this.API_ENDPOINT}/users`, JSON.stringify(newUser))
             .map(response => response)
             .catch(err => Observable.throw(err['_body']));
     }
 
 
-    authenticateUser(user: UserLogin) {
-        return this.http.post(`${this.baseUri}login`, JSON.stringify(user), { headers: this.baseHeaders })
-            .map(response => response)
-            .catch(err => Observable.throw(err['_body']));
+    authenticateUser(user: UserLogin): Observable<Object> {
+        return new Observable((obs: Observer<Object>) => {
+            this.http.post(`${this.API_ENDPOINT}/login`, JSON.stringify(user))
+                .map(res => res.text())
+                .subscribe(res => {
+                    localStorage.setItem('token', res);
+                    this.isAuthenticated = true;
+                    obs.next({ success: true });
+                },
+                (error) => {
+                    obs.error({ success: false });
+                },
+                () => {
+                    obs.complete();
+                });
+        });
     }
 
-    getUsernameAvailability(username: string) {
+    logout() {
+        localStorage.removeItem('token');
+        this._isAuthenticated = false;
+    }
+
+    get isAuthenticated(): boolean {
+        return this._isAuthenticated;
+    }
+
+    set isAuthenticated(isAuthenticated: boolean) {
+        this._isAuthenticated = isAuthenticated;
+    }
+
+    getUsernameAvailability(username: string): Observable<UsernameAvailability> {
         return this.http
-            .get(`${this.baseUri}/users/check-availability/${username}`, { headers: this.baseHeaders })
-            .map(response => <UsernameAvailability>response.json());      
+            .get(`${this.API_ENDPOINT}/users/check-availability/${username}`)
+            .map(response => <UsernameAvailability>response.json());
 
 
     }

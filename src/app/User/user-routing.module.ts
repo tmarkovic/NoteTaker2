@@ -1,8 +1,9 @@
 import { NotesComponent } from './Notes/notes.component';
 import { LoginRegisterComponent } from './LoginRegister/login-register.component';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, CanActivate } from '@angular/router';
 import { UserComponent } from './';
+import { AuthGuard } from '../Shared/AuthGuard/auth-guard';
 
 @NgModule({
     imports: [
@@ -28,6 +29,7 @@ import { UserComponent } from './';
                     },
                     {
                         path: 'notes',
+                        canActivate: [AuthGuard],
                         component: NotesComponent,
 
                     }
@@ -37,6 +39,6 @@ import { UserComponent } from './';
     ],
     exports: [
         RouterModule
-    ]
+    ],
 })
 export class UserRoutingModule { }

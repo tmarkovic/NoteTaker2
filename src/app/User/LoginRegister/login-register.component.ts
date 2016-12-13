@@ -4,6 +4,7 @@ import { LoadingModel } from '../../Shared/Models';
 import { UserService } from '../user.service';
 import { AddUserModel, UserLogin } from '../Models/user.model';
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'login-register',
@@ -12,11 +13,9 @@ import { Component, OnInit } from '@angular/core';
 export class LoginRegisterComponent implements OnInit {
     register$: ReplaySubject<LoadingModel> = new ReplaySubject<LoadingModel>();
     login$: ReplaySubject<LoadingModel> = new ReplaySubject<LoadingModel>();
-    constructor(private userService: UserService, private flashMessageService: FlashMessageService) { }
+    constructor(private userService: UserService, private flashMessageService: FlashMessageService, private router: Router) { }
 
-    ngOnInit() {
-
-    }
+    ngOnInit() { }
 
 
     authenticateUser(user: UserLogin) {
@@ -28,13 +27,16 @@ export class LoginRegisterComponent implements OnInit {
 
         this.login$.next(loadingModel);
         this.userService.authenticateUser(user).subscribe(x => {
-            this.flashMessageService.showMessage(new FlashMessage(FlashMessageType.SUCCES, 'Login succesful, redirecting to user area', 1500));
-            console.log(x);
+            this.flashMessageService.showMessage(new FlashMessage(
+                FlashMessageType.SUCCES, 'Login succesful, redirecting to user area', 1500, (() => this.router.navigate(['/user/notes'])))
+            );
         }, error => {
             loadingModel.isLoading = false;
             loadingModel.isSuccess = false;
             loadingModel.error = error;
-            this.flashMessageService.showMessage(new FlashMessage(FlashMessageType.ERROR, 'Invalid credentials', 1000));
+            this.flashMessageService.showMessage(new FlashMessage(
+                FlashMessageType.ERROR, 'Login failed, invalid credentials', 1500)
+            );
         },
             () => {
                 this.login$.complete();

@@ -1,0 +1,28 @@
+[contenteditable=true]:empty:before {
+    content: attr(placeholder);
+    display: block;
+    font-style: italic;
+    color: #999;
+    /* For Firefox */
+}
+
+#noteText {
+    resize: none;
+    outline: none;
+    padding: 5px;
+}
+
+#noteTitle[contenteditable=true] {
+    outline: none;
+}
+
+#noteTitle:focus {}
+
+.inactive-tag {
+    opacity: 0.5;
+}
+
+.note-tag {
+    cursor: pointer;
+    line-height: 21px;
+}

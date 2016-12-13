@@ -1,3 +1,5 @@
+import { HttpInterceptorService } from './Shared/Services/http-interceptor.service';
+import { Http } from '@angular/http';
 import { ValidationModule } from './Shared/Validation/validation.module';
 import { AboutComponent } from './About/about.component';
 import { NavigationComponent } from './Shared';
@@ -21,7 +23,7 @@ import { FlashMessageModule } from './Shared/FlashMessage/';
     ],
     exports: [BrowserModule],
     declarations: [AppComponent, HomeComponent, NavigationComponent, AboutComponent],
-    providers: [],
+    providers: [{ provide: Http, useClass: HttpInterceptorService }],
     bootstrap: [AppComponent],
 })
 export class AppModule { }

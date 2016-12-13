@@ -1,0 +1,37 @@
+<p class="control is-pulled-right">
+    <a class="" (click)="setCreateState($event)">
+        <span class="icon">
+    							<i class="fa fa-plus "></i>
+  							</span>
+    </a>
+</p>
+<form [formGroup]="form" novalidate>
+    <label class="label">Title:</label>
+    <p class="control" [ngClass]=" { 'is-loading': (currentNote | async)?.title == null && currentState != editorState.CREATE } ">
+        <input class="input" type="text" formControlName="title" [(ngModel)]="note.title" placeholder="Enter a title">
+        <validation [controlName]="'title'" [control]="titleControl"></validation>
+    </p>
+    <label class="label ">Text:</label>
+    <p class="control" [ngClass]=" { 'is-loading': (currentNote | async)?.text == null && currentState != editorState.CREATE}">
+        <textarea class=" textarea " formControlName="text" [(ngModel)]="note.text" placeholder="Enter some text"></textarea>
+        <validation [controlName]="'text'" [control]="textControl"></validation>
+    </p>
+    <label class="label ">Tag:</label>
+    <p class="control" [ngClass]=" { 'is-loading': (currentNote | async)?.text == null && currentState != editorState.CREATE}">
+        <span *ngFor="let color of colors" [class.inactive-tag]="color != note.color" (click)="setColor(color, $event)" class="icon note-tag"><i tag [color]="color" [size]="'md'" class="fa fa-square"></i></span>
+    </p>
+    <p class="control is-pulled-right">
+        <a *ngIf="currentState == editorState.CREATE" (click)="createNote($event)" [class.is-loading]="(createResult | async)?.isLoading"
+            class="button is-primary
+        " [class.is-disabled]="form.disabled || !form.valid">Create</a>
+        <a *ngIf="currentState == editorState.UPDATE" (click)="updateNote($event)" [class.is-loading]="(updateResult | async)?.isLoading"
+            class="button is-primary" [class.is-disabled]="form.disabled || !form.valid">Update</a>
+        <a class="button is-danger " (click)="deleteNote($event)" [class.is-loading]="(deleteResult | async)?.isLoading" [class.is-disabled]="form.disabled || currentState == editorState.CREATE">
+            <span class="icon">
+    							<i class="fa fa-trash-o "></i>
+  							</span>
+            <span>Delete</span>
+        </a>
+    </p>
+</form>
+{{form.controls['text'].value | json}} {{form.controls['title'].value | json}}

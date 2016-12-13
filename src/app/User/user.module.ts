@@ -13,6 +13,7 @@ import { TabsComponent, TabComponent } from '../Shared';
 import { UserService } from './user.service';
 import { ValidationModule } from '../Shared/Validation/validation.module';
 import { ValidationComponent } from '../Shared/Validation/validation.component';
+import { AuthGuard } from '../Shared/AuthGuard/auth-guard';
 
 
 
@@ -35,9 +36,9 @@ import { ValidationComponent } from '../Shared/Validation/validation.component';
         UserComponent,
         TabsComponent,
         TabComponent,
-        LoginRegisterComponent
+        LoginRegisterComponent,
     ],
-    providers: [UserService],
+    providers: [AuthGuard, UserService],
 })
 export class UserModule { }
 

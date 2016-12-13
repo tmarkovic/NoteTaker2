@@ -71,6 +71,7 @@ exports.update = function (req, res) {
     var noteData = req.body.noteData;
     req.note.title = noteData.title;
     req.note.text = noteData.text;
+    req.note.color = noteData.color
     req.note.save();
     res.status(200).send(req.note);
 };

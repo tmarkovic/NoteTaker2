@@ -16,18 +16,16 @@ export class FlashMessageService {
 
     showMessage = (message: FlashMessage) => {
         if (this.messages.length === 0) {
-            console.log(message.message);
             this.messages.push(message);
             this.showMessage$.next(message);
         } else {
-            console.log(message.message);
             this.messages.push(message);
         }
 
 
     }
     messageClosed() {
-        console.log(this.messages.shift());
+        this.messages.shift();
         if (this.messages.length > 0) {
             this.showMessage$.next(this.messages[0]);
         }
